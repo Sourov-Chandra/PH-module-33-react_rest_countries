@@ -19,48 +19,25 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
   const langs = languages ? Object.values(languages) : [];
 
   const handleVisited = () => {
-    //basic system
-    // if(visited){
-    //   setVisited(false)
-    // }
-    // else{
-    //   setVisited(true)
-    // }
-
-    //second system
-    // setVisited(!visited);
-
-    // third system
-    setVisited(visited ? false : true);
+    setVisited(!visited);
     handleVisitedCountry(country);
   };
 
   const handleAddingFlag = () => {
     setAddFlags(!addFlags);
     handleVisitedFlags(flags.png);
-  }
+  };
 
   return (
-    // <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] flex items-center justify-center p-6 relative overflow-hidden font-sans">
-    //   {/* Decorative blobs */}
-    //   <div className="absolute top-[10%] left-[15%] w-72 h-72 bg-violet-600 rounded-full opacity-30 blur-[80px]" />
-    //   <div className="absolute bottom-[15%] right-[15%] w-60 h-60 bg-cyan-500 rounded-full opacity-20 blur-[80px]" />
-    //   <div className="absolute top-[50%] right-[30%] w-48 h-48 bg-pink-500 rounded-full opacity-20 blur-[80px]" />
-
-      // AFTER
-<div className=" bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] flex items-center justify-center p-6 relative overflow-hidden font-sans">
-  <div className="absolute top-[5%] left-[5%] w-10 h-10 bg-violet-600 rounded-full opacity-40 blur-[18px]" />
-  <div className="absolute bottom-[5%] right-[5%] w-8 h-8 bg-cyan-500 rounded-full opacity-30 blur-[14px]" />
-  <div className="absolute top-[50%] right-[10%] w-6 h-6 bg-pink-500 rounded-full opacity-30 blur-[10px]" />
+    <div className="bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] flex items-center justify-center p-3 relative overflow-hidden font-sans">
+      <div className="absolute top-[5%] left-[5%] w-10 h-10 bg-violet-600 rounded-full opacity-40 blur-[18px]" />
+      <div className="absolute bottom-[5%] right-[5%] w-8 h-8 bg-cyan-500 rounded-full opacity-30 blur-[14px]" />
+      <div className="absolute top-[50%] right-[10%] w-6 h-6 bg-pink-500 rounded-full opacity-30 blur-[10px]" />
 
       {/* Glass Card */}
       <div
-        className={`relative w-full max-w-2xl rounded-3xl overflow-hidden backdrop-blur-2xl border shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-all duration-500
-          ${
-            visited
-              ? "bg-emerald-500/10 border-emerald-400/30"
-              : "bg-white/[0.08] border-white/15"
-          }`}
+        className={`relative w-full rounded-3xl overflow-hidden backdrop-blur-2xl border shadow-[0_25px_50px_rgba(0,0,0,0.5)] transition-all duration-500
+          ${visited ? "bg-emerald-500/10 border-emerald-400/30" : "bg-white/[0.08] border-white/15"}`}
       >
         {/* Top shimmer line */}
         <div
@@ -68,23 +45,16 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
             ${visited ? "via-emerald-400/60" : "via-white/50"}`}
         />
 
-        {/* Visited ribbon */}
-        {visited && (
-          <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-semibold px-3 py-1 rounded-full">
-            <span>✓</span>
-            <span>Visited</span>
-          </div>
-        )}
-        {/* Visited country flag ribbon */}
+        {/* ✅ Single ribbon — shows when visited OR flag added */}
         {(visited || addFlags) && (
           <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-semibold px-3 py-1 rounded-full">
             <span>✓</span>
-            <span>Visited</span>
+            <span>{visited ? "Visited" : "Flag Added"}</span>
           </div>
         )}
 
         <div className="flex flex-col sm:flex-row">
-          {/* LEFT — Flag + ISO badges */}
+          {/* LEFT */}
           <div
             className={`flex flex-col items-center justify-center gap-4 p-8 sm:w-52 flex-shrink-0 border-b sm:border-b-0 sm:border-r transition-colors duration-500
               ${visited ? "border-emerald-400/20" : "border-white/10"}`}
@@ -115,7 +85,6 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
               )}
             </div>
 
-            {/* Visited Button */}
             <button
               onClick={handleVisited}
               className={`w-full mt-2 py-2 px-4 rounded-xl text-sm font-semibold tracking-wide border transition-all duration-300 cursor-pointer
@@ -128,7 +97,6 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
               {visited ? "✓ Visited" : "Mark as Visited"}
             </button>
 
-            {/* added visited flag btn */}
             <button
               onClick={handleAddingFlag}
               className={`w-full mt-2 py-2 px-4 rounded-xl text-sm font-semibold tracking-wide border transition-all duration-300 cursor-pointer
@@ -138,13 +106,12 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
                     : "bg-white/10 border-white/20 text-white/70 hover:bg-white/20 hover:text-white"
                 }`}
             >
-              {addFlags ? "✓ Added Flag" : "Add Visited Flag"}
+              {addFlags ? "✓ Flag Added" : "Add Flag"}
             </button>
           </div>
 
-          {/* RIGHT — Info */}
+          {/* RIGHT */}
           <div className="flex-1 p-6 flex flex-col gap-4">
-            {/* Name block */}
             <div>
               <p className="text-xs uppercase tracking-[0.2em] mb-1 text-violet-300/85">
                 Country Profile
@@ -157,7 +124,6 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
               )}
             </div>
 
-            {/* Stats grid */}
             <div className="grid grid-cols-2 gap-3">
               {[
                 { label: "Capital", value: capital },
@@ -173,11 +139,7 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
                   <div
                     key={label}
                     className={`rounded-xl px-3 py-2 border transition-colors duration-500
-                      ${
-                        visited
-                          ? "bg-emerald-500/[0.07] border-emerald-400/15"
-                          : "bg-white/[0.06] border-white/10"
-                      }`}
+                      ${visited ? "bg-emerald-500/[0.07] border-emerald-400/15" : "bg-white/[0.06] border-white/10"}`}
                   >
                     <p className="text-[10px] uppercase tracking-widest mb-0.5 text-white/40">
                       {label}
@@ -187,12 +149,10 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
                 ))}
             </div>
 
-            {/* Divider */}
             <hr
               className={`transition-colors duration-500 ${visited ? "border-emerald-400/15" : "border-white/10"}`}
             />
 
-            {/* Currency */}
             {currencyEntry && (
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-xs uppercase tracking-widest text-white/40">
@@ -207,7 +167,6 @@ const Country = ({ country, handleVisitedCountry, handleVisitedFlags }) => {
               </div>
             )}
 
-            {/* Languages */}
             {langs.length > 0 && (
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-xs uppercase tracking-widest text-white/40">
